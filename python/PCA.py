@@ -38,7 +38,7 @@ class PCA:
 		print self.eigenvectors
 		
 	### 主成分分析による次元削減
-	def transform(self, dim):
+	def project(self, dim):
 		# 最初のdim個の固有ベクトルを取得
 		components = self.eigenvectors[:dim,]
 		

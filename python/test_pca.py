@@ -31,7 +31,7 @@ def test_pca(filename):
 	plt.show()
 	
 	# 主成分空間への写像の表示
-	X_pca = pca.transform(dim=2)
+	X_pca = pca.project(dim=2)
 	plt.plot(X_pca, 'b.')
 	plt.show()
 
