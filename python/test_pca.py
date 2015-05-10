@@ -16,17 +16,22 @@ def test_pca(filename):
 
 	X = np.array(X)
 
-	# 主成分分析前のサイズ
-	print X.shape
-
-	# 主成分分析による次元削減
-	pca = PCA(X)
-	X_pca = pca.transform(dim=2)
-
-	# 主成分分析後のサイズ
-	print X_pca.shape
+	# 主成分分析
+	# （Trueを指定すると、分散で割ってnormalizeする）
+	pca = PCA(X, False)
 	
-	# 表示
+	# 寄与率を表示
+	accm = []
+	total = 0.0
+	for v in pca.eigenvalues:
+		total += v
+		accm.append(total)
+	accm /= total
+	plt.plot(accm, 'b-');
+	plt.show()
+	
+	# 主成分空間への写像の表示
+	X_pca = pca.transform(dim=2)
 	plt.plot(X_pca, 'b.')
 	plt.show()
 

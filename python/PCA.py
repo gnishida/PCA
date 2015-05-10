@@ -3,11 +3,15 @@ import matplotlib.pyplot as plt
 
 ### 主成分分析の実装
 class PCA:
-	def __init__(self, X):
+	def __init__(self, X, normalize):
 		self.X = X
 		
 		# 平均を引く
 		self.X_bar = np.array([row - np.mean(row) for row in X.transpose()]).transpose()
+		
+		# 分散でわる
+		if normalize == True:
+			self.X_bar /= np.var(self.X_bar, 0)
 
 		# 共分散行列を求める
 		m = np.dot(self.X_bar.T, self.X_bar) / X.shape[0]
