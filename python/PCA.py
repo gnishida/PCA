@@ -9,9 +9,9 @@ class PCA:
 		# 平均を引く
 		self.X_bar = np.array([row - np.mean(row) for row in X.transpose()]).transpose()
 		
-		# 分散でわる
-		if normalize == True:
-			self.X_bar /= np.var(self.X_bar, 0)
+		# 標準偏差でわる
+		if normalize == False:
+			self.X_bar /= np.std(self.X_bar, 0)
 
 		# 共分散行列を求める
 		m = np.dot(self.X_bar.T, self.X_bar) / X.shape[0]
@@ -33,9 +33,6 @@ class PCA:
 		self.eigenvectors = np.array(self.eigenvectors)
 		
 		self.eigenvalues = np.array(sorted(w, reverse=True))
-		
-		print self.eigenvalues
-		print self.eigenvectors
 		
 	### 主成分分析による次元削減
 	def project(self, dim):
