@@ -28,6 +28,10 @@ int main() {
 	cv::Mat_<double> normalizedY, muY, maxY;
 	ml::normalizeDataset(Y, normalizedY, muY, maxY);
 
+	LinearRegression lr;
+	double residue = lr.train(normalizedX, normalizedY);
+	cout << residue << endl;
+
 #if 0
 	FILE* fp = fopen("residue.txt", "w");
 
@@ -75,7 +79,7 @@ int main() {
 	fclose(fp);
 #endif
 
-#if 1
+#if 0
 	FILE* fp = fopen("residue.txt", "w");
 
 	for (double threshold = 1.0; threshold < 4.0; threshold += 0.2) {
