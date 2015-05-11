@@ -18,7 +18,7 @@ def test_pca(filename):
 
 	# 主成分分析
 	# （Trueを指定すると、分散で割ってnormalizeする）
-	pca = PCA(X, True)
+	pca = PCA(X, False)
 	
 	print pca.eigenvalues / np.sum(pca.eigenvalues)
 	
