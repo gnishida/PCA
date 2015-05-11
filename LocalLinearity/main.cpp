@@ -17,10 +17,18 @@
 
 using namespace std;
 
-int main() {
+int main(int argc,char *argv[]) {
+	if (argc < 3) {
+		cout << endl;
+		cout << "Usage: " << argv[0] << " <filename of X> <filename of Y>" << endl;
+		cout << endl;
+
+		return -1;
+	}
+
 	cv::Mat_<double> X, Y;
-	ml::loadDataset("samplesX.txt", X);
-	ml::loadDataset("samplesY.txt", Y);
+	ml::loadDataset(argv[1], X);
+	ml::loadDataset(argv[2], Y);
 
 	// normalize
 	cv::Mat_<double> normalizedX, muX, maxX;
@@ -28,9 +36,8 @@ int main() {
 	cv::Mat_<double> normalizedY, muY, maxY;
 	ml::normalizeDataset(Y, normalizedY, muY, maxY);
 
-	LinearRegression lr;
-	double residue = lr.train(normalizedX, normalizedY);
-	cout << residue << endl;
+	ml::addBias(normalizedX);
+
 
 #if 0
 	FILE* fp = fopen("residue.txt", "w");
@@ -79,7 +86,7 @@ int main() {
 	fclose(fp);
 #endif
 
-#if 0
+#if 1
 	FILE* fp = fopen("residue.txt", "w");
 
 	for (double threshold = 1.0; threshold < 4.0; threshold += 0.2) {
